@@ -10,31 +10,72 @@
     <h1>Prueba</h1>
     <p>Un arreglo de mascotas</p>
     <ul>
-        <li>Agregar una mascota</li>
-        <li>Editar una mascota</li>
-        <li>Eliminar una mascota</li>
-        <li>Contar las mascotas</li>
-        <li>Saludo a cada mascota</li>
-        <li>Saludo a cada mascota, usando una función</li>
+        <li>
+            Listar mascotas
+            <ol id="punto1"></ol>
+        </li>
+        <li>
+            Agregar una mascota ratón
+            <ol id="punto2"></ol>
+        </li>
+        <li>
+            Editar una mascota pez, por tortuga
+            <ol id="punto3"></ol>
+        </li>
+        <li>
+            Eliminar una mascota (conejo)
+            <ol id="punto4"></ol>
+        </li>
+        <li>
+            Contar las mascotas
+            <ol id="punto5"></ol>
+        </li>
+        <li>
+            Saludo a cada mascota
+            <ol id="punto6"></ol>
+        </li>
+        <li>
+            Saludo a cada mascota, usando una función
+            <ol id="punto7"></ol>
+        </li>
     </ul>
 
     <script>
         let mascotas = ['gato', 'perro', 'pez', 'conejo']
-        console.log(mascotas)
+
+        //Helpers, utils, funciones
+        const imprimirLista = (mascota, index, contenedor) => {
+            let elemento = document.getElementById(contenedor)
+            elemento.innerHTML += `<li>${mascota}</li>`
+        }
+
+        //Listar mascotas
+        mascotas.forEach( (mascota, index) => { imprimirLista(mascota, index, 'punto1') })
         
         //Agregar una mascota
         mascotas.push('ratón')
-        console.log(mascotas)
+        mascotas.forEach( (mascota, index) => { imprimirLista(mascota, index, 'punto2') })
 
-        //Editar una mascota
+        //Editamos una mascota por su index
+        const indexPez = mascotas.indexOf('pez')
+        mascotas[indexPez] = 'tortuga'
+        mascotas.forEach( (mascota, index) => { imprimirLista(mascota, index, 'punto3') })
 
         //Eliminar una mascota
+        const indexConejo = mascotas.indexOf('conejo')
+        mascotas.splice(indexConejo, 1)
+        mascotas.forEach( (mascota, index) => { imprimirLista(mascota, index, 'punto4') })
 
         //Contar las mascotas
+        punto5.innerHTML = `<li>Total mascotas ${mascotas.length}</li>`
 
         //Saludar a cada mascota
+        mascotas.forEach( (mascota, index) => { imprimirLista( `Hola ${mascota}` , index, 'punto6') })
 
         //Saludar a cada mascota usando una función
+        const saludo = (mascota, index) => { imprimirLista( `Hola ${mascota} llamada con funcion` , index, 'punto7') }
+        mascotas.forEach(saludo)
+
     </script>
 </body>
 </html>

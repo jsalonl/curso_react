@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Objeto Carro
+        const carro = {
+            marca: 'Fiat',
+            color: 'Azul',
+            placa: 'ABC123',
+            modelo: 2023,
+        }
+        // console.table(carro)
+        // console.log(`El carro tiene placa ${carro.placa}`)
+
+        //Objeto Mascota
+        //Definimos un objeto
+        const mascota = {
+            nombre: 'Lucky',
+            especie: 'Perro',
+            edad: 13,
+            raza: 'Schnauzer',
+            hermanos: [
+                {
+                    nombre: 'Contador',
+                    especie: 'Gato',
+                    edad: 3,
+                    raza: 'Americano común de pelo corto'
+                },
+                {
+                    nombre: 'Zoro',
+                    especie: 'Perro',
+                    edad: 1,
+                    raza: 'Pitbull'
+                }
+            ],
+            propietarios: [
+                {
+                    nombre: 'Joan',
+                    apellido: 'Nieto'
+                },
+                {
+                    nombre: 'Vivian',
+                    apellido: 'Pinzón'
+                }
+            ]
+        }
+
+        //Acceder a los propietarios
+        mascota.propietarios.forEach( (propietario) => {
+            // console.log(`${propietario.nombre} ${propietario.apellido}`)
+        })
+
+        //Acceder a los hermanos
+        mascota.hermanos.forEach( (hermano, index) => {
+            // console.log(`Hermano ${index+1} : ${hermano.nombre}`)
+        })
+
+        //Agregarle una propiedad al objeto
+        mascota.color = 'blanco'
+        mascota.vacunas = ['rabia', 'parvovirus']
+        mascota.nombre = 'Lucrecia'
+        // console.log(mascota)
+
+        //Eliminar una propiedad del objeto
+        delete mascota.edad
+        // console.log(mascota)
+
+        //Desestructurar un objeto
+        const { nombre:nombreMascota } = mascota
+        // console.log(nombreMascota)
+
+        //Desestructurar un objeto dentro de otro objeto
+        // const { hermanos } = mascota
+        // const { nombre } = hermanos[0]
+        // console.log(nombre)
+
+        //Recorrer objeto
+        // mascota.hermanos.forEach( (hermano) => {
+        //     console.log(hermano.nombre)
+        // })
+
+        //Recorrer objeto con desestructuración
+        const { hermanos, propietarios, vacunas } = mascota
+        
+        hermanos.forEach( (hermano) => {
+            const { nombre } = hermano
+            console.log(nombre)
+        })
+
+        propietarios.forEach( (propietario) => {
+            console.log(`${propietario.nombre} ${propietario.apellido}`)
+        })
+
+        vacunas.forEach( (vacuna) => {
+            console.log(vacuna)
+        })
+
+        // TODO: Desestructurar un objeto dentro de otro objeto
+        // const { hermanos : { nombre } } = mascota
+        // hermanos.forEach( (hermano) => {
+        //     console.log(hermano)
+        // })
+        
+
+    </script>
+</body>
+</html>
