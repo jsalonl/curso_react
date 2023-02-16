@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch Async/Await</h1>
+    <ol id="listaPokemon">
+    </ol>
+    <script>
+        //Fetch API con Async Await
+        const obtenerPokemones = async() => {
+            
+            try {
+                // Guardamos la respuesta de la petición fetch en una constante
+                const res = await fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
+                // Si el status de la respuesta no es 200, lanzamos un error
+                if(res.status !== 200){
+                    throw new Error(`Error de servidor: ${res.status}`);
+                } 
+                // Si el status es 200, guardamos la respuesta en formato JSON en una constante
+                const data = await res.json();
+                const { results:listaPokemon } = data
+                // console.log(data); // Array pokemones
+                // Traer el elemento lista
+                const lista = document.getElementById('listaPokemon')
+                // Iteramos el arreglo de pokemones
+                listaPokemon.forEach(pokemon => {
+                    // console.log(pokemon)
+                    // Extraemos el nombre y la url de cada pokemon
+                    const { name, url } = pokemon
+                    console.log(name, url)
+
+                    const itemList = document.createElement('li')
+                    itemList.innerHTML = `<a href="${url}">${name}</a>`
+                    lista.appendChild(itemList)
+                    
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        obtenerPokemones()
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch with map</h1>
+
+    <script>
+        //Fetch API con Async Await
+        const obtenerPokemones = async() => {
+            try {
+                const res = await fetch('https://pokeapi.co/api/v2/pokemon');
+                const data = await res.json();
+                //console.log(data.results); //Imprime el arreglo de objetos
+                const { results:listaPokemon } = data
+                
+                const arrayNombres = [];
+
+                //Function Map
+                listaPokemon.forEach(pokemon => {
+                    const { name, url } = pokemon
+                    arrayNombres.push(name)
+                })
+                console.log(arrayNombres);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        obtenerPokemones()
+
+        //Fetch API con Async Await y Map
+        const obtenerPokemonesMap = async() => {
+            try {
+                const res = await fetch('https://pokeapi.co/api/v2/pokemon');
+                const data = await res.json();
+                //console.log(data.results); //Imprime el arreglo de objetos
+                const { results:listaPokemon } = data
+                const arrayNombres = listaPokemon.map(pokemon => {
+                    const { name, url } = pokemon
+                    return [name, url]
+                });
+                console.log(arrayNombres);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        obtenerPokemonesMap()
+
+        //Fetch API con Async Await y Filter
+        const obtenerPokemonesFilter = async() => {
+        try {
+            const res = await fetch('https://pokeapi.co/api/v2/pokemon');
+            const data = await res.json();
+            //console.log(data.results); //Imprime el arreglo de objetos
+            const { results:listaPokemon } = data
+            const arrayNombres = listaPokemon.filter(pokemon => {
+                const { name, url } = pokemon
+                return name === 'bulbasaur'
+            });
+            console.log(arrayNombres);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    obtenerPokemonesFilter()
+    </script>
+</body>
+</html>

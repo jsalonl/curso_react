@@ -27,7 +27,43 @@
     </ul>
 
     <script>
-        //Tu codigo aqui
+        fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            const punto1 = document.getElementById('punto1')
+            const punto2 = document.getElementById('punto2')
+            const arreglo = []
+
+            data.forEach(user => {
+
+                let { name, username, email, company, address } = user
+                let { name:nameCompany } = company
+                let { city, geo } = address
+                let { lat: latitud, lng } = geo
+
+                //Punto 1
+                punto1.innerHTML += `<li>Nombre: ${name} </br> Usuario: ${username}</li>`
+
+                //Punto 2
+                punto2.innerHTML += `<li>Nombre: ${name} </br> Latitud: ${latitud} </br> Longitud: ${lng} </li>`
+
+                //Punto 3
+                arreglo.push({
+                    usuario: name,
+                    nombreUsuario: username,
+                    correoElectronico: email,
+                    nombreEmpresa: nameCompany,
+                    ciudad: city
+                })
+                
+            });
+            //Punto 3
+            arreglo.forEach(element => {
+                let { usuario, nombreUsuario, correoElectronico, nombreEmpresa, ciudad } = element
+                punto3.innerHTML += `<li> ${usuario} - ${correoElectronico} </li>`
+            })
+        })
     </script>
 </body>
 </html>
