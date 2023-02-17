@@ -1,5 +1,5 @@
-const Usuario = ({usuario}) => {
-    const {nombres, apellidos, salario, estado} = usuario
+const Usuario = ({usuario, eliminarUsuario}) => {
+    const {id, nombres, apellidos, salario, estado} = usuario
     return (
         <div className="card mt-3">
             <div className="card-header">
@@ -16,7 +16,7 @@ const Usuario = ({usuario}) => {
                 
                 <div className="d-flex justify-content-center gap-2">
                     <a href="#" className="btn btn-warning">Editar</a>
-                    <a href="#" className="btn btn-danger">Eliminar</a>
+                    <a href="#" onClick={ () => eliminarUsuario(id) } className="btn btn-danger">Eliminar</a>
                 </div>
             </div>  
         </div>

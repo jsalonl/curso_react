@@ -78,6 +78,10 @@ const Controlado = ({ agregarUsuario }) => {
                         <option value="inactivo">Inactivo</option>
                     </select>
                 </div>
+                <div className="mb-3 form-check">
+                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                </div>
                 <div className="form-group">
                     <label htmlFor="rol">Rol del usuario</label>
                     <select 

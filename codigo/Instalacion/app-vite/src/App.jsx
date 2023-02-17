@@ -6,10 +6,10 @@ import { useState } from 'react'
 import FormControlado from './components/formularios/Controlado'
 import ListaUsuarios from './components/usuario/ListaUsuarios'
 
-
+//Ejemplo
 const usuariosIniciales = [
-  // { id:1, nombres: "nombre 1", apellidos: "apellido 1", salario: "4000000", estado:"activo" },
-  // { id:2, nombres: "nombre 2", apellidos: "apellido 2", salario: "2300000", estado:"inactivo" },
+  { id:1, nombres: "nombre 1", apellidos: "apellido 1", salario: "4000000", estado:"activo" },
+  { id:2, nombres: "nombre 2", apellidos: "apellido 2", salario: "2300000", estado:"inactivo" },
 ]
 
 function App() {
@@ -26,6 +26,11 @@ function App() {
     setUsuarios([...usuarios, usuario])
   }
 
+  const eliminarUsuario = (id) => {
+    const usuariosFiltrados = usuarios.filter( usuario => usuario.id !== id)
+    setUsuarios(usuariosFiltrados)
+  }
+
   return (
     <>
       <div className="container">
@@ -38,7 +43,7 @@ function App() {
         <Boton id="botonBorrar" usuarioId={usuarioId} nombreBoton="Borrar" clases="btn btn-danger" /> */}
         {/* <FormNoControlado /> */}
         <FormControlado agregarUsuario={agregarUsuario} />
-        <ListaUsuarios usuarios={usuarios} />
+        <ListaUsuarios usuarios={usuarios} eliminarUsuario={eliminarUsuario}/>
       </div>
     </>
   )
