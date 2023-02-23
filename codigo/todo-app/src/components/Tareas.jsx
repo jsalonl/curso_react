@@ -1,11 +1,11 @@
 import Tarea from './Tarea'
 
-const Tareas = ({tareas, eliminarTarea}) => {
+const Tareas = ({ tareas, eliminarTarea, actualizarTarea }) => {
   return (
     <>
     <h1 className="text-center">Lista de tareas</h1>
       {tareas.map((tarea) => (
-        <Tarea key={tarea.id} tarea={tarea} eliminarTarea={eliminarTarea} />
+        <Tarea key={tarea.id} tarea={tarea} eliminarTarea={eliminarTarea} actualizarTarea={actualizarTarea} />
       ))}
       {
         tareas.length === 0 && (

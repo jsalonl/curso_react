@@ -31,7 +31,7 @@ const Controlado = ({agregarTarea}) => {
     agregarTarea({
       id: Date.now(),
       ...tarea,
-      estado: tarea.estado === 'Pendiente'
+      estado: tarea.estado === 'Completado'
     })
 
     Swal.fire({

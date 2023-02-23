@@ -2,15 +2,18 @@
 // import Listahabilidades from './components/listas/ListaHabilidades'
 // import Titulo from './components/titulos/TituloGeneral'
 // import FormNoControlado from './components/formularios/NoControlado'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FormControlado from './components/formularios/Controlado'
 import ListaUsuarios from './components/usuario/ListaUsuarios'
 
 //Ejemplo
-const usuariosIniciales = [
-  { id:1, nombres: "nombre 1", apellidos: "apellido 1", salario: "4000000", estado:"activo" },
-  { id:2, nombres: "nombre 2", apellidos: "apellido 2", salario: "2300000", estado:"inactivo" },
-]
+// const usuariosIniciales = [
+  // { id:1, nombres: "nombre 1", apellidos: "apellido 1", salario: "4000000", estado:"activo", administrador: true },
+  // { id:2, nombres: "nombre 2", apellidos: "apellido 2", salario: "2300000", estado:"inactivo", administrador: false },
+// ]
+
+//Uso local storage
+const usuariosIniciales = localStorage.getItem('usuarios') ? JSON.parse(localStorage.getItem('usuarios')) : [ ]
 
 function App() {
 
@@ -22,6 +25,11 @@ function App() {
 
   const [ usuarios, setUsuarios ] = useState(usuariosIniciales)
 
+  useEffect(() => {
+    localStorage.setItem('usuarios', JSON.stringify(usuarios))
+    console.log("Use effect")
+  }, [usuarios])
+
   const agregarUsuario = (usuario) => {
     setUsuarios([...usuarios, usuario])
   }
@@ -29,6 +37,11 @@ function App() {
   const eliminarUsuario = (id) => {
     const usuariosFiltrados = usuarios.filter( usuario => usuario.id !== id)
     setUsuarios(usuariosFiltrados)
+  }
+
+  const editarUsuario = (id, usuarioEditado) => {
+    const usuariosEditados = usuarios.map( usuario => usuario.id === id ? usuarioEditado : usuario )
+    setUsuarios(usuariosEditados)
   }
 
   return (
@@ -43,7 +56,7 @@ function App() {
         <Boton id="botonBorrar" usuarioId={usuarioId} nombreBoton="Borrar" clases="btn btn-danger" /> */}
         {/* <FormNoControlado /> */}
         <FormControlado agregarUsuario={agregarUsuario} />
-        <ListaUsuarios usuarios={usuarios} eliminarUsuario={eliminarUsuario}/>
+        <ListaUsuarios usuarios={usuarios} eliminarUsuario={eliminarUsuario} editarUsuario={editarUsuario} />
       </div>
     </>
   )

@@ -1,12 +1,15 @@
 import { useState } from 'react'
+import Swal from 'sweetalert2'
+import Button from 'react-bootstrap/Button';
 
 const Controlado = ({ agregarUsuario }) => {
 
     const [ usuario, setUsuario ] = useState({
         nombres: '',
         apellidos: '',
-        salario: 1000000,
-        estado: 'activo'
+        salario: 0,
+        estado: 'activo',
+        administrador: false
     })
 
     //Envio formulario
@@ -14,18 +17,43 @@ const Controlado = ({ agregarUsuario }) => {
         e.preventDefault()
         const { nombres, apellidos, salario, estado } = usuario
 
-        if(nombres === '' || apellidos === '' || salario < 1 || estado === '' ) return alert('Los campos no pueden ser vacios')
-        
+        if(nombres.trim() === '' || apellidos.trim() === '' || salario < 1 || estado.trim() === '' ){
+            return Swal.fire({
+                title: 'Error!',
+                text: 'campos no pueden estar vacíos',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              })
+        }
+
         agregarUsuario({
-            ...usuario,
-            id: Date.now()
+            id: Date.now(),
+            ...usuario
+        })
+
+        Swal.fire({
+            title: 'Usuario creado!',
+            text: 'Usuario creado correctamente',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        })
+
+        setUsuario({
+            nombres: '',
+            apellidos: '',
+            salario: 0,
+            estado: 'activo',
+            administrador: false
         })
         //console.log(JSON.stringify(usuario))
     }
 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setUsuario({ ...usuario, [name]: value.trim()})
+        const { name, value, type, checked } = e.target
+        setUsuario({
+            ...usuario, 
+            [name]: type === 'checkbox' ? checked : value,
+        })
     }
 
     return (
@@ -41,6 +69,7 @@ const Controlado = ({ agregarUsuario }) => {
                         placeholder="Nombres"
                         // onChange={ (e) => setUsuario({ ...usuario, nombres: e.target.value })}
                         onChange={handleChange}
+                        value={usuario.nombres}
                     />
                 </div>
                 <div className="form-group">
@@ -52,6 +81,7 @@ const Controlado = ({ agregarUsuario }) => {
                         className="form-control mb-3"
                         placeholder="Apellidos"
                         onChange={handleChange}
+                        value={usuario.apellidos}
                     />
                 </div>
                 <div className="form-group">
@@ -59,7 +89,7 @@ const Controlado = ({ agregarUsuario }) => {
                     <input
                         type="tel"
                         name="salario"
-                        defaultValue={usuario.salario}
+                        value={usuario.salario}
                         id="salario"
                         className="form-control mb-3"
                         placeholder="1000000"
@@ -79,10 +109,17 @@ const Controlado = ({ agregarUsuario }) => {
                     </select>
                 </div>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                    <input 
+                        type="checkbox" 
+                        className="form-check-input" 
+                        id="administrador" 
+                        name="administrador"
+                        onChange={handleChange}
+                        checked={usuario.administrador}
+                        />
+                    <label className="form-check-label" htmlFor="administrador">Administrador</label>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="rol">Rol del usuario</label>
                     <select 
                         name="rol" 
@@ -93,8 +130,10 @@ const Controlado = ({ agregarUsuario }) => {
                         <option value="usuario">Usuario</option>
                         <option value="administrador">Administrador</option>
                     </select>
+                </div> */}
+                <div className="d-flex justify-content-center">
+                    <Button variant="success" type='submit'>Agregar</Button>
                 </div>
-                <button type="submit" className="btn btn-success">Agregar</button>
             </form>
         </>
     )
